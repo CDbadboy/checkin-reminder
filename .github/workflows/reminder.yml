@@ -1,0 +1,20 @@
+name: Check-in Reminder
+
+on:
+  schedule:
+    # 每5分钟，北京时间 9:00-10:00(UTC1-2) 和 17:30-18:30(UTC9-10)，周一到周五
+    - cron: "*/5 1-2,9-10 * * 1-5"
+  workflow_dispatch:
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check and send reminder
+        run: node .github/scripts/remind.js
+        env:
+          SENDKEY: ${{ secrets.SENDKEY }}
+          CALLBACK_URL: ${{ secrets.CALLBACK_URL }}
+          CALLBACK_SECRET: ${{ secrets.CALLBACK_SECRET }}

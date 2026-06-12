@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/callback.js": {
+      "memory": 128,
+      "maxDuration": 30
+    }
+  }
+}
