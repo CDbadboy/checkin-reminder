@@ -23,8 +23,8 @@ function getDateStr(d) {
 function getPeriod(cst) {
   const h = cst.getHours();
   const m = cst.getMinutes();
-  // 上班窗口 9:00-10:00
-  if (h === 9) return "morning";
+  // 上班窗口 8:50-10:00
+  if ((h === 8 && m >= 50) || h === 9) return "morning";
   // 下班窗口 17:30-18:30
   if (h === 17 || (h === 18 && m <= 30)) return "evening";
   return null;
@@ -63,7 +63,7 @@ function readStatus(dateStr) {
 
 async function sendNotification(dateStr, period, status) {
   const label = period === "morning" ? "上班" : "下班";
-  const timeLabel = period === "morning" ? "9:00" : "17:30";
+  const timeLabel = period === "morning" ? "8:50" : "17:30";
   const remindCount = status._remindCount || 0;
   const remindNote = remindCount > 0 ? `\n\n> 已提醒 ${remindCount + 1} 次` : "";
 
